@@ -1,0 +1,20 @@
+<div class="f feed">
+    <div class="user"><img src="<%= @user.picture()%>"></div>
+    <div class="thumb">
+
+    </div>
+    <div class="description">
+        <div>
+            <%=  @user.firstName() %>
+            <%= @verb() %>
+            <% if @files: %><%= @files.map((x) -> x.fallbackName()).join(', ') %> to<% end %>
+            <% if @collection: %><%= @collection.name %><% end %>
+        </div>
+        <div class="thumb">
+            <% if @collection: %><img src="<%= @collection.thumb() %>"><% end %>
+        </div>
+        <div>
+            <% if @file: %><%= @file.name %><% end %>
+        </div>
+    </div>
+</div>

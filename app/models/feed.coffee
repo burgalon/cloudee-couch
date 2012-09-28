@@ -1,0 +1,58 @@
+#Model = require('./model')
+Spine = require('spine')
+Relation = require('spine/lib/relation')
+Model = require('./model')
+
+# Models
+User = require('models/user')
+Collection = require('models/collection')
+File = require('models/file')
+
+# Constants
+VERBS =
+  'JoinFeed': 'joined'
+  'ShareFileListFeed': 'shared colleciton'
+  'AddedFeed': 'added'
+  'ShareFileFeed': 'shared'
+  'CommentFeed': 'commented'
+  'LikeFeed': 'liked'
+  'UploadFeed': 'uploaded'
+
+class Feed extends Model
+  @configure 'Feed', 'type', 'created_at_ago'
+  #, 'user', 'collection', 'files'
+
+  @extend Spine.Model.Ajax
+  @url: ->
+    Spine.Model.host + '/users/feeds'
+
+  @fromJSON: (objects) ->
+    objects = objects.feed
+    return unless objects
+    if typeof objects is 'string'
+      objects = JSON.parse(objects)
+    if Spine.isArray(objects)
+      (new @(value) for value in objects)
+    else
+      new @(objects)
+
+  load: (atts) ->
+    for key, value of atts
+      if typeof @[key] is 'function'
+        @[key](value)
+      else
+        if key=='user'
+          @user = new User(value)
+        else if key=='collection'
+          @collection = new Collection(value)
+        else if key=='files'
+          @files = value.map (file) ->
+            File.exists(file.id) || File.refresh([file]).find(file.id)
+        else
+          @[key] = value
+    this
+
+  verb: ->
+    VERBS[@type]
+
+module.exports = Feed

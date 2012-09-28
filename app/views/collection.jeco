@@ -1,0 +1,3 @@
+<div class="f">
+  NAME <%= @name %>
+</div>
