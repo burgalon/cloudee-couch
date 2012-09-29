@@ -1,0 +1,4 @@
+<div class="collection-thumb">
+  <div class="files-count"><%= @files_count %></div>
+  <img src="<%= @thumb() %>">
+</div>

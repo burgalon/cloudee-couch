@@ -1,3 +1,17 @@
-<div class="f">
-    user <%= @name %>
+<div class="friend-row">
+    <div class="user-small"><img src="<%= @picture()%>"></div>
+    <div class="name"><%= @name %></div>
 </div>
+<% for collection in @collections: %>
+  <div class="f feed">
+    <div class="thumb-col">
+        <%= @safe require('views/collection_thumb')(collection)%>
+    </div>
+    <div class="description-col">
+        <div>
+            <div><%= collection.name %></div>
+            <div><%= collection.created_at_ago %></div>
+        </div>
+    </div>
+</div>
+<% end %>

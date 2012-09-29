@@ -33,8 +33,8 @@ class Controller extends Spine.Controller
   focus:->
     @el.addClass('focus')
 
-  html: ->
-    super
+  render: ->
+    @refreshElements()
     @select() if @els?.length
 
   selectedEl: ->

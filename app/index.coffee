@@ -6,6 +6,8 @@ Authorization = require('authorization')
 
 # Models
 Feed = require('models/feed')
+MyCollection = require('models/my_collection')
+Friend = require('models/friend')
 
 # Controllers
 #Manager = require('spine/lib/manager')
@@ -36,5 +38,7 @@ class App extends Spine.Controller
     Spine.Route.setup()
 
     Feed.fetch()
+    MyCollection.fetch()
+    Friend.fetch()
 
 module.exports = App

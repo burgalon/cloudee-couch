@@ -1,19 +1,18 @@
 <div class="f feed">
-    <div class="user"><img src="<%= @user.picture()%>"></div>
-    <div class="thumb">
-
+    <div class="user-col"><img src="<%= @user.picture()%>"></div>
+    <div class="thumb-col">
+        <% if @collection: %><%= @safe require('views/collection_thumb')(@collection)%><% end %>
     </div>
-    <div class="description">
+    <div class="description-col">
         <div>
-            <%=  @user.firstName() %>
-            <%= @verb() %>
-            <% if @files: %><%= @files.map((x) -> x.fallbackName()).join(', ') %> to<% end %>
-            <% if @collection: %><%= @collection.name %><% end %>
+            <div><%=  [@user.firstName(),  @verb()].join ' ' %></div>
+            <div>
+                <% if @files: %><%= @files.length %> videos to<% end %>
+                <% if @collection: %><%= @collection.name %><% end %>
+            </div>
+            <div><%= @created_at_ago %></div>
         </div>
-        <div class="thumb">
-            <% if @collection: %><img src="<%= @collection.thumb() %>"><% end %>
-        </div>
-        <div>
+        <div class="">
             <% if @file: %><%= @file.name %><% end %>
         </div>
     </div>

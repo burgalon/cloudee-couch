@@ -4,15 +4,15 @@ Controller = require('./controller')
 
 # Models
 Feed = require('models/feed')
+MyCollection = require('models/my_collection')
+Friend = require('models/friend')
 
 class ListWrapperController extends Controller
   template: -> throw 'Override template'
   wrapperTemplate: -> throw 'Override wrapperTemplate'
 
-  elements:
-    '.items': 'items'
-
   constructor: ->
+    @elements['.items'] = 'items'
     super
     @html require(@wrapperTemplate)
     @list = new List
@@ -23,6 +23,7 @@ class ListWrapperController extends Controller
 
   render: ->
     @list.render(@data())
+    super
 
   change: =>
     @render()
@@ -34,8 +35,7 @@ class Collections extends ListWrapperController
   className: 'collections'
   wrapperTemplate: 'views/collections'
   template: 'views/collection'
-  data: ->
-    [{name: 'Vacation Videos'}, {name: 'All Boxee Videos'}]
+  model: MyCollection
 
 class Activity extends ListWrapperController
   className: 'activity'
@@ -47,8 +47,7 @@ class Friends extends ListWrapperController
   className: 'friends'
   wrapperTemplate: 'views/friends'
   template: 'views/user'
-  data: ->
-    [{name: 'Alon Burg'}, {name: 'Jose Saramago'}]
+  model: Friend
 
 class Main extends Spine.Stack
   className: 'main stack'

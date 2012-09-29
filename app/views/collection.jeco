@@ -1,3 +1,11 @@
-<div class="f">
-  NAME <%= @name %>
+<div class="f feed">
+    <div class="thumb-col">
+        <%= @safe require('views/collection_thumb')(@)%>
+    </div>
+    <div class="description-col">
+        <div>
+            <div><%=  @name %></div>
+            <div><%= @created_at_ago %></div>
+        </div>
+    </div>
 </div>

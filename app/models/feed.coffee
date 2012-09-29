@@ -1,6 +1,5 @@
 #Model = require('./model')
 Spine = require('spine')
-Relation = require('spine/lib/relation')
 Model = require('./model')
 
 # Models
@@ -28,13 +27,7 @@ class Feed extends Model
 
   @fromJSON: (objects) ->
     objects = objects.feed
-    return unless objects
-    if typeof objects is 'string'
-      objects = JSON.parse(objects)
-    if Spine.isArray(objects)
-      (new @(value) for value in objects)
-    else
-      new @(objects)
+    super
 
   load: (atts) ->
     for key, value of atts
