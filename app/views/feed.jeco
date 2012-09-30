@@ -1,19 +1,19 @@
 <div class="f feed">
     <div class="user-col"><img src="<%= @user.picture()%>"></div>
     <div class="thumb-col">
-        <% if @collection: %><%= @safe require('views/collection_thumb')(@collection)%><% end %>
+        <% if @collection: %><%= @safe require('views/collection_thumb')(@collection) %>
+        <% else if @file: %><%= @safe require('views/file_thumb')(@file) %>
+      <% end %>
     </div>
     <div class="description-col">
         <div>
             <div><%=  [@user.firstName(),  @verb()].join ' ' %></div>
             <div>
                 <% if @files: %><%= @files.length %> videos to<% end %>
-                <% if @collection: %><%= @collection.name %><% end %>
+                <% if @collection: %><%= @collection.name %>
+                <% else if @file: %><%= @file.name %><% end %>
             </div>
-            <div><%= @created_at_ago %></div>
-        </div>
-        <div class="">
-            <% if @file: %><%= @file.name %><% end %>
+            <div><%= @created_at_ago %> ago</div>
         </div>
     </div>
 </div>

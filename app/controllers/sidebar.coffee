@@ -10,4 +10,6 @@ class Sidebar extends Controller
   render: ->
     @html require('views/sidebar')(@item)
 
+  right: ->
+    @enter()
 module.exports = Sidebar

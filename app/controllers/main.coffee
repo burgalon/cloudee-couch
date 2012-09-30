@@ -31,6 +31,14 @@ class ListWrapperController extends Controller
   data: ->
     @model.all()
 
+  select: ->
+    super
+    selectedElOffset = @selectedEl().offset().top
+    if selectedElOffset + @selectedEl().height() > @el.height() || selectedElOffset<0
+      @el.animate({
+        scrollTop: @el.scrollTop()+selectedElOffset
+      }, 200);
+
 class Collections extends ListWrapperController
   className: 'collections'
   wrapperTemplate: 'views/collections'

@@ -37,7 +37,9 @@ class Feed extends Model
         if key=='user'
           @user = new User(value)
         else if key=='collection'
-          @collection = new Collection(value)
+          @collection = Collection.exists(value.id) || Collection.refresh([value]).find(value.id)
+        else if key=='file'
+          @file = File.exists(value.id) || File.refresh([value]).find(value.id)
         else if key=='files'
           @files = value.map (file) ->
             File.exists(file.id) || File.refresh([file]).find(file.id)
