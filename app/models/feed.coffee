@@ -29,13 +29,16 @@ class Feed extends Model
     objects = objects.feed
     super
 
+  couchUrl: ->
+    return @collection.couchUrl() if @collection
+
   load: (atts) ->
     for key, value of atts
       if typeof @[key] is 'function'
         @[key](value)
       else
         if key=='user'
-          @user = new User(value)
+          @user = User.exists(value.id) || User.refresh([value]).find(value.id)
         else if key=='collection'
           @collection = Collection.exists(value.id) || Collection.refresh([value]).find(value.id)
         else if key=='file'

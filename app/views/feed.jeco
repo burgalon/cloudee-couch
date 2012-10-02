@@ -1,4 +1,4 @@
-<div class="f feed">
+<div class="f feed" href="#<%= @couchUrl() %>">
     <div class="user-col"><img src="<%= @user.picture()%>"></div>
     <div class="thumb-col">
         <% if @collection: %><%= @safe require('views/collection_thumb')(@collection) %>

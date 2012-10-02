@@ -1,0 +1,17 @@
+<div class="friend-row">
+  <div class="user-small"><img src="<%= @user.picture()%>"></div>
+  <div class="name"><%= @name %></div>
+</div>
+<% for file in @files: %>
+<div class="f feed">
+  <div class="thumb-col">
+    <%= @safe require('views/file_thumb')(file)%>
+  </div>
+  <div class="description-col">
+    <div>
+      <div><%=  file.fallbackName() %></div>
+      <div><%= file.recorded_at_ago %></div>
+    </div>
+  </div>
+</div>
+<% end %>

@@ -63,30 +63,37 @@ class Controller extends Spine.Controller
     return false
 
   down: ->
-    @log 'down'
+#    @log 'down'
     @deselect()
     @nextSelect()
     @select()
 
   up: ->
-    @log 'up'
+#    @log 'up'
     @deselect()
     @prevSelect()
     @select()
 
-  left: ->
-    @log 'left'
-    # back
+  navigateBack: ->
     @navigate false
 
+  left: ->
+#    @log 'left'
+    @navigateBack()
+
   right: ->
-    @log 'right'
+#    @log 'right'
 
   enter: ->
-    @log 'enter'
+#    @log 'enter'
     return true unless @els.length
+    href = @selectedEl().attr('href')
     # substr(1) for removing the # from the url
-    @navigate @selectedEl().attr('href').substring(1)
+    return @navigate href.substring(1) if href
+    item = @selectedEl().data('item')
+    @log 'item', item, item.name
+#    @navigate @item.couchUrl
+
     return false
 
   log: ->

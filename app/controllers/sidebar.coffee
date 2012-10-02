@@ -9,6 +9,7 @@ class Sidebar extends Controller
 
   render: ->
     @html require('views/sidebar')(@item)
+    super
 
   right: ->
     @enter()
