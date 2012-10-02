@@ -34,7 +34,6 @@ class Collection extends Model
           files = value.map (file) ->
             File.exists(file.id) || File.refresh([file]).find(file.id)
           @files = @files.concat(files)
-          console.log 'loaded', @, @files.length
         else
           @[key] = value
     this
@@ -44,7 +43,6 @@ class Collection extends Model
       files = data.files.map (file) ->
         File.exists(file.id) || File.refresh([file]).find(file.id)
       @files = @files.concat(files)
-      console.log('loadMoreFiles files', @files.length)
       @constructor.records[@id] = @
 
 module.exports = Collection

@@ -22,7 +22,6 @@ class Files extends Controller
     return if !@collectionId
     @collection = Collection.exists(@collectionId)
     return if !@collection || !@collection.user || !@collection.files
-    @log 'actually rendering files', @collection.name
     @html require('views/files')(@collection)
     @el.removeClass('hide')
     super
@@ -32,10 +31,8 @@ class Files extends Controller
     return @log 'no id in params', params unless @collectionId
     @collection = Collection.exists(@collectionId)
     if @collection && @collection.user && @collection.files && (@collection.files_count==@collection.files.length || Collection.PAGINATION_LIMIT==@collection.files.length)
-      @log 'load Collection - render'
       @render()
     else
-      @log 'load Collection - fetch',@collectionId
       Collection.fetch(id: @collectionId)
 
   select: ->
