@@ -39,6 +39,7 @@ class App extends Spine.Controller
 
     @append @sidebar, @main, @files
     Spine.Route.setup()
+    @navigate '/'
 
     Feed.fetch()
     MyCollection.fetch()
