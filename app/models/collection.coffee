@@ -21,7 +21,6 @@ class Collection extends Model
     @image_hash.medium
 
   load: (atts) ->
-    debugger
     for key, value of atts
       if typeof @[key] is 'function'
         @[key](value)

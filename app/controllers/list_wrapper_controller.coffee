@@ -32,6 +32,6 @@ class ListWrapperController extends Controller
     if selectedElOffset + @selectedEl().height() > @el.height() || selectedElOffset<0
       @el.animate({
       scrollTop: @el.scrollTop()+selectedElOffset
-      }, 200);
+      }, 100);
 
 module.exports = ListWrapperController
