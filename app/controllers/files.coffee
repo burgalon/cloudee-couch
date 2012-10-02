@@ -44,6 +44,7 @@ class Files extends Controller
 
   blur: =>
     @collectionId = null
+    @selectedIndex = 0
     @html ''
     @el.addClass('hide')
 
