@@ -3,7 +3,7 @@
   <div class="name"><%= @name %></div>
 </div>
 <% for file in @files: %>
-<div class="f feed">
+<div class="f feed" href="#<%= file.couchUrl() %>">
   <div class="thumb-col">
     <%= @safe require('views/file_thumb')(file)%>
   </div>

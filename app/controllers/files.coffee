@@ -27,9 +27,12 @@ class Files extends Controller
     super
 
   change: (params) =>
-    @collectionId = params.id
-    return @log 'no id in params', params unless @collectionId
-    @collection = Collection.exists(@collectionId)
+    if params.id != @collectionId
+      @collectionId = params.id
+      @collection = Collection.exists(@collectionId)
+      @selectedIndex = 0
+      @paginatedIndex = 0
+
     if @collection && @collection.user && @collection.files && (@collection.files_count==@collection.files.length || Collection.PAGINATION_LIMIT==@collection.files.length)
       @render()
     else
@@ -49,14 +52,6 @@ class Files extends Controller
       }, 50);
 
   blur: =>
-    @collectionId = null
-    @selectedIndex = 0
-    @paginatedIndex = 0
-    @html ''
     @el.addClass('hide')
-
-  navigateBack: ->
-    href = $('.sidebar .select').attr('href')
-    return @navigate(if href then href.substring(1) else '/activity')
 
 module.exports = Files

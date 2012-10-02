@@ -75,7 +75,7 @@ class Controller extends Spine.Controller
     @select()
 
   navigateBack: ->
-    @navigate false
+    history.go(-1)
 
   left: ->
 #    @log 'left'

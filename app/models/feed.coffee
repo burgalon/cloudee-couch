@@ -31,6 +31,7 @@ class Feed extends Model
 
   couchUrl: ->
     return @collection.couchUrl() if @collection
+    return @file.couchUrl() if @file
 
   load: (atts) ->
     for key, value of atts
