@@ -38,8 +38,8 @@ class App extends Spine.Controller
       '/collection/:id': (params) -> @files.active(params)
 
     @append @sidebar, @main, @files
-    Spine.Route.setup()
     @navigate '/'
+    Spine.Route.setup()
 
     Feed.fetch()
     MyCollection.fetch()

@@ -1,9 +1,12 @@
+Authorization = require('/authorization')
+Spine = require('spine')
+
 Config = require('controllers/config')
 Model = require('./model')
 File = require('./file')
 
 class Collection extends Model
-  PAGINATION_LIMIT = 25
+  @PAGINATION_LIMIT = 25
   @configure 'Collection', 'id', 'name', 'image_hash', 'files_count', 'created_at_ago'
   @extend Spine.Model.Ajax
   @url: ->
@@ -18,6 +21,7 @@ class Collection extends Model
     @image_hash.medium
 
   load: (atts) ->
+    debugger
     for key, value of atts
       if typeof @[key] is 'function'
         @[key](value)
@@ -26,11 +30,21 @@ class Collection extends Model
           User = require('models/user')
           @user = User.exists(value.id) || User.refresh([value]).find(value.id)
         else if key=='files'
-          @files = value.map (file) ->
+          @files = [] unless @files
+          files = value.map (file) ->
             File.exists(file.id) || File.refresh([file]).find(file.id)
+          @files = @files.concat(files)
+          console.log 'loaded', @, @files.length
         else
           @[key] = value
     this
 
+  loadMoreFiles: (offset) ->
+    Authorization.ajax(url: @url(), data: 'offset='+ @files.length).success (data) =>
+      files = data.files.map (file) ->
+        File.exists(file.id) || File.refresh([file]).find(file.id)
+      @files = @files.concat(files)
+      console.log('loadMoreFiles files', @files.length)
+      @constructor.records[@id] = @
 
 module.exports = Collection

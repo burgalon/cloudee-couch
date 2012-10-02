@@ -56,4 +56,8 @@ class Authorization extends Spine.Module
   @is_loggedin: ->
     !!@token
 
+  @ajax: (params) ->
+    $.ajax($.extend({}, Spine.Ajax.defaults, params))
+
+
 module.exports = Authorization

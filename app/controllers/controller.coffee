@@ -47,10 +47,10 @@ class Controller extends Spine.Controller
     @selectedEl().removeClass('select')
 
   nextSelect: ->
-    @selectedIndex = if @selectedIndex>=@els.length-1 then 0 else @selectedIndex+1
+    @selectedIndex+=1 if @selectedIndex<@els.length-1
 
   prevSelect: ->
-    @selectedIndex = if @selectedIndex>0 then @selectedIndex-1 else @els.length-1
+    @selectedIndex-=1 if @selectedIndex>0
 
   keypress: (e) =>
     return true unless focusedController is @

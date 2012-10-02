@@ -1,3 +1,5 @@
+File = require('/models/file')
+
 # Controllers
 ListWrapperController = require('./list_wrapper_controller')
 Controller = require('./controller')
@@ -7,6 +9,8 @@ Collection = require('/models/collection')
 
 class Files extends Controller
   className: 'files hide'
+  # Helps keep track of pagination
+  paginatedIndex: 0
 
   constructor: ->
     super
@@ -36,15 +40,21 @@ class Files extends Controller
 
   select: ->
     super
+    if @selectedIndex > @paginatedIndex && @selectedIndex > @collection.files.length - (Collection.PAGINATION_LIMIT * 0.25) && @collection.files.length<@collection.files_count
+      @paginatedIndex = @collection.files.length
+      @collection.loadMoreFiles(@paginatedIndex).success(@render)
+
+    # Scrolling
     selectedElOffset = @selectedEl().offset().top
     if selectedElOffset + @selectedEl().height() > @el.height() || selectedElOffset<0
       @el.animate({
       scrollTop: @el.scrollTop()+selectedElOffset
-      }, 200);
+      }, 50);
 
   blur: =>
     @collectionId = null
     @selectedIndex = 0
+    @paginatedIndex = 0
     @html ''
     @el.addClass('hide')
 
