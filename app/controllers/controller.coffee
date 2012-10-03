@@ -90,11 +90,8 @@ class Controller extends Spine.Controller
     href = @selectedEl().attr('href')
     # substr(1) for removing the # from the url
     return @navigate href.substring(1) if href
-    item = @selectedEl().data('item')
-    @log 'item', item, item.name
-#    @navigate @item.couchUrl
-
-    return false
+    # Else
+    @selectedEl().trigger 'click'
 
   log: ->
     console.info.apply console, arguments
