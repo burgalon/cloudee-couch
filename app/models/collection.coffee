@@ -38,7 +38,7 @@ class Collection extends Model
     this
 
   loadMoreFiles: (offset) ->
-    Authorization.ajax(url: @url(), data: 'offset='+ @files.length).success (data) =>
+    Authorization.ajax(url: @url(), data: {offset: @files.length}).done (data) =>
       files = data.files.map (file) ->
         File.exists(file.id) || File.refresh([file]).find(file.id)
       @files = @files.concat(files)
