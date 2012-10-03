@@ -1,5 +1,3 @@
-Authorization = require('authorization')
-
 # Models
 Feed = require('models/feed')
 MyCollection = require('models/my_collection')
@@ -14,8 +12,6 @@ class MainWrapper extends Spine.Controller
 
   constructor: ->
     super
-    Authorization.setup()
-    return Authorization.login() unless Authorization.is_loggedin()
 
     @sidebar = new Sidebar
     @main = new Main

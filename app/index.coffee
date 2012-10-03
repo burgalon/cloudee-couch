@@ -1,6 +1,7 @@
 require('lib/setup')
 
 Spine   = require('spine')
+Authorization = require('authorization')
 
 # Controllers
 MainWrapper = require('controllers/main_wrapper')
@@ -23,6 +24,10 @@ class App extends Spine.Stack
   default: 'mainWrapper'
 
   constructor: ->
+    Authorization.setup()
+    return Authorization.login() unless Authorization.is_loggedin()
+    boxeeAPI.keyboardMode();
+
     super
     @navigate '/'
     Spine.Route.setup()
