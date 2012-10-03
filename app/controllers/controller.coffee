@@ -17,6 +17,7 @@ class Controller extends Spine.Controller
     @bind 'down', @down
     @bind 'up', @up
     @bind 'enter', @enter
+    @bind 'esc', @esc
 
     @bind 'blur', @blur
     @bind 'focus', @focus
@@ -60,6 +61,7 @@ class Controller extends Spine.Controller
     @trigger 'down' if e.keyCode==40
     @trigger 'up' if e.keyCode==38
     @trigger 'enter' if e.keyCode==13
+    @trigger 'esc' if e.keyCode==27
     return false
 
   down: ->
@@ -83,6 +85,9 @@ class Controller extends Spine.Controller
 
   right: ->
 #    @log 'right'
+
+  esc: ->
+    @navigateBack()
 
   enter: ->
 #    @log 'enter'
