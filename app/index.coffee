@@ -27,6 +27,7 @@ class App extends Spine.Stack
     Authorization.setup()
     return Authorization.login() unless Authorization.is_loggedin()
     boxeeAPI.keyboardMode();
+    boxeeAPI.hookMenuToEsc();
 
     super
     @navigate '/'

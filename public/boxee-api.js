@@ -1,5 +1,13 @@
 
 var defineBoxeeControlFunctions = function () {
+  // Hook Back/Menu button to ESC keypress
+  function hookMenuToEsc(callback) {
+    boxee.onKeyboardKeyBack = function() {
+      browser.execute('var e = jQuery.Event("keydown"); e.which = 27; e.keyCode=27; $("body").trigger(e);')
+    }
+  }
+  boxee.exec(hookMenuToEsc)
+
   function setApiMinVersion(args) {
     version = args[0];
     boxee.apiMinVersion = version || 7.0;
@@ -66,6 +74,9 @@ if (!window.boxee) {
 
 window.boxeeAPI = {
 
+  hookMenuToEsc: function() {
+    boxee.exec('hookMenuToEsc()');
+  },
   notify: function(message, seconds) {
     seconds = seconds ? seconds : 2;
     var json = JSON.stringify([message, ".", seconds]);
