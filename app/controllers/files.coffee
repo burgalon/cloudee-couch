@@ -51,7 +51,8 @@ class Files extends Controller
       scrollTop: @el.scrollTop()+selectedElOffset
       }, 50);
 
-  blur: =>
+  navigateBack: =>
     @el.addClass('hide')
+    super
 
 module.exports = Files

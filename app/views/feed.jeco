@@ -8,10 +8,10 @@
     <div class="description-col">
         <div>
             <div><%=  [@user.firstName(),  @verb()].join ' ' %></div>
-            <div>
+            <div class="name">
                 <% if @files: %><%= @files.length %> videos to<% end %>
-                <% if @collection: %><%= @collection.name %>
-                <% else if @file: %><%= @file.name %><% end %>
+                <% if @collection: %><%= @collection.trimmedName() %>
+                <% else if @file: %><%= @file.fallbackName() %><% end %>
             </div>
             <div><%= @created_at_ago %> ago</div>
         </div>

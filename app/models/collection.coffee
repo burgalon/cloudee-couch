@@ -20,6 +20,9 @@ class Collection extends Model
       return "http://assets.cloudee.com/media/BAhbCFsHOgZmSSI5bWVkaWFfZmlsZS80Zjk5OWNjOTdkNDBiMTQxNWUwMDAyZWMvaS8xL21hc3Rlci8yLmpwZwY6BkVUWwg6BnA6CnRodW1iSSIOMzA2eDE3NCNuBjsGRlsHOgZlOghqcGc.jpg"
     @image_hash.medium
 
+  trimmedName: ->
+    if @name.length > 30 then @name.substring(0, 30) + '...' else @name
+
   load: (atts) ->
     for key, value of atts
       if typeof @[key] is 'function'

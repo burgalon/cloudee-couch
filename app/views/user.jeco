@@ -9,7 +9,7 @@
     </div>
     <div class="description-col">
         <div>
-            <div><%= collection.name %></div>
+            <div class="name"><%= collection.name %></div>
             <div><%= collection.created_at_ago %></div>
         </div>
     </div>

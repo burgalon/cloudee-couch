@@ -1,27 +1,51 @@
 .sidebar
   float: left
-  width: 158px
+  width: 213px
   height: screenHeight
-  border-right: 1px solid white
-  margin-right: 22px
-  padding-right: 47px
-  font-size: 18px
+  border-right: 1px solid blurredGray
+  margin-right: 30px
+  padding-left: 62px
+  margin-top: 37px
+  font-size: 24px
 
   h1
     color: white
     font-size: 18px
+    background: url(images/cloudee.png)
+    width: 147px
+    height: 31px
+    margin: 0 2px 16px
 
   .f
     display: block
+    border: 3px solid transparent
+    border-radius: 20px
+    padding: 4px 18px 0
+    margin-top: 9px
+    margin-left: 2px
+    width: 135px
 
     &.select
-      text-decoration: underline
+      border-color: blurredGray
+
+.sidebar.focus
+  .select
+    border-color: selectedBlue
 
 .main
   float: left
-  width: 450px
+  width: 481px
+  overflow: hidden
+
+  h1
+    margin: 35px 8px 6px
+    font-size: 30px
 
   > div
+    width: 481px
     height: screenHeight
     overflow: hidden
 
+.files-wrapper
+  .main
+    width: 214px

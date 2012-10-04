@@ -24,9 +24,13 @@ class Controller extends Spine.Controller
 
     # Manage only one controller each time in focus
     @active ->
-      focusedController.trigger('blur') if focusedController
+      if focusedController
+        focusedController.trigger('blur')
+        $('body').removeClass focusedController.className.split(' ')[0]+'-wrapper'
       focusedController = @
+      $('body').addClass focusedController.className.split(' ')[0]+'-wrapper'
       focusedController.trigger('focus')
+
 
   blur: ->
     @el.removeClass('focus')
@@ -76,8 +80,18 @@ class Controller extends Spine.Controller
     @prevSelect()
     @select()
 
+  closeWindow: ->
+    @log 'closeWindow'
+    if window.boxee?.fake
+      window.close()
+    else
+      boxeeAPI.closeApp()
+
   navigateBack: ->
-    history.go(-1)
+    if Spine.Route.path=='/'
+      @closeWindow()
+    else
+      history.go(-1)
 
   left: ->
 #    @log 'left'
@@ -85,6 +99,7 @@ class Controller extends Spine.Controller
 
   right: ->
 #    @log 'right'
+    @enter()
 
   esc: ->
     @navigateBack()

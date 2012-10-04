@@ -29,4 +29,15 @@ class MainWrapper extends Spine.Controller
     MyCollection.fetch()
     Friend.fetch()
 
+  activate: ->
+    @el.fadeIn()
+    super
+
+  deactivate: ->
+    super
+    @el.fadeOut('fast')
+
+
+
+
 module.exports = MainWrapper

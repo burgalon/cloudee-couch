@@ -4,7 +4,7 @@
     </div>
     <div class="description-col">
         <div>
-            <div><%=  @name %></div>
+            <div class="name"><%=  @trimmedName() %></div>
             <div><%= @created_at_ago %></div>
         </div>
     </div>

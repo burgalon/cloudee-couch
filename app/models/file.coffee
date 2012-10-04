@@ -5,7 +5,8 @@ class File extends Model
   thumb: ->
     @image_hash.medium
   fallbackName: ->
-    @name || ('from ' + @location)
+    name = @name || ('from ' + @location)
+    if name.length > 30 then name.substring(0, 30) + '...' else name
 
   couchUrl: ->
     "/file/#{@id}/play"

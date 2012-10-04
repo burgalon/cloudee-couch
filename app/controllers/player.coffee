@@ -16,7 +16,6 @@ class Player extends Controller
     @player[0].play()
 
   blur: ->
-    @html ''
     app.mainWrapper.activate()
 
   change: (params) =>

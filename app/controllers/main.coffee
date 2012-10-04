@@ -8,19 +8,19 @@ MyCollection = require('models/my_collection')
 Friend = require('models/friend')
 
 class Collections extends ListWrapperController
-  className: 'collections'
+  className: 'collections panel'
   wrapperTemplate: 'views/collections'
   template: 'views/collection'
   model: MyCollection
 
 class Activity extends ListWrapperController
-  className: 'activity'
+  className: 'activity panel'
   wrapperTemplate: 'views/activity'
   template: 'views/feed'
   model: Feed
 
 class Friends extends ListWrapperController
-  className: 'friends'
+  className: 'friends panel'
   wrapperTemplate: 'views/friends'
   template: 'views/user'
   model: Friend

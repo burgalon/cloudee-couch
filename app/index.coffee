@@ -13,9 +13,10 @@ Spine.Model.host = Config.host
 Spine.Ajax.defaults.headers['X-Version'] = Config.version
 
 class App extends Spine.Stack
+  className: ''
   controllers:
-    mainWrapper: MainWrapper
     player: Player
+    mainWrapper: MainWrapper
 
   routes:
     '/': 'mainWrapper'
@@ -28,7 +29,6 @@ class App extends Spine.Stack
     return Authorization.login() unless Authorization.is_loggedin()
     boxeeAPI.keyboardMode();
     boxeeAPI.hookMenuToEsc();
-
     super
     @navigate '/'
     Spine.Route.setup()
