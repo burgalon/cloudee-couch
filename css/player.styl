@@ -3,6 +3,7 @@ timeTextWidth = 126px
 paddingHelper = ((screenWidth - timeBarWidth - timeTextWidth * 2) / 2)
 .player
   .controls
+    visibility: hidden
     font-size: 24px
     position: absolute
     bottom: 0
@@ -57,3 +58,8 @@ paddingHelper = ((screenWidth - timeBarWidth - timeTextWidth * 2) / 2)
       left: 0
       background-color: transparentBlack
       padding: 30px 36px 0 paddingHelper
+
+.player-wrapper
+  .player
+    .controls
+      visibility: visible

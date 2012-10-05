@@ -5,6 +5,7 @@ File = require('models/file')
 
 class Player extends Controller
   className: 'player'
+  seekTime: 3
   elements:
     'video': 'player'
     '.up-next': 'upNext'
@@ -33,8 +34,8 @@ class Player extends Controller
     @video.load()
     @upNext.html require('views/file')(@file)
     @video.play()
-    @setVideoTime(0)
-    @setVideoDuration(0)
+    @setVideoDuration(@file.runtime_seconds)
+    @seekTime = Math.min(25, @file.runtime_seconds / 60) + 3
     @fadeIn()
 
   blur: ->
@@ -86,10 +87,16 @@ class Player extends Controller
     @fadeOut()
 
   onTimeUpdate: =>
+    # Set digits
     @setVideoTime @video.currentTime
-    @setVideoDuration @video.duration
-    @timeBar.stop().animate(width: @video.currentTime/@video.duration * (980 - 34 / 2) + 34 / 2)
-    @scrubber.stop().animate(left: @video.currentTime/@video.duration * (980 - 34 / 2) + 126 + 34 / 2)
+    #@setVideoDuration @video.duration
+
+    # Update bars
+    duration = (if @video.currentTime > @currentTime then null else 0)
+    @log 'duration', duration
+    @currentTime = @video.currentTime
+    @timeBar.stop().animate(width: @video.currentTime/@video.duration * (980 - 34 / 2) + 24 / 2 + 34 / 2, duration)
+    @scrubber.stop().animate(left: @video.currentTime/@video.duration * (980 - 34 / 2) + 24 / 2 + 126, duration)
 
 
   ## Video helpers
@@ -98,13 +105,13 @@ class Player extends Controller
     @controls.fadeIn()
 
   fadeOut: ->
-    @timerId = setTimeout (=> @controls.fadeOut()), 2000
+    @timerId = setTimeout (=> @controls.fadeOut() unless @video.paused), 2000
 
   left: ->
-    @seekTo @video.currentTime - 3
+    @seekTo @video.currentTime - @seekTime
 
   right: ->
-    @seekTo @video.currentTime + 3
+    @seekTo @video.currentTime + @seekTime
 
   up: ->
   down: ->
@@ -123,10 +130,13 @@ class Player extends Controller
     minutes = total % (60 * 60)
     minutes = minutes / 60
     total = total - (minutes * 60)
-    hours = total / (60 * 60)
-    hours = "0" + hours  if hours < 10
     minutes = "0" + minutes  if minutes < 10
     seconds = "0" + seconds  if seconds < 10
+
+    hours = total / (60 * 60)
+    if hours == 0
+      return minutes + ":" + seconds
+    hours = "0" + hours  if hours < 10
     return hours + ":" + minutes + ":" + seconds
 
   setVideoTime: (seconds) =>
