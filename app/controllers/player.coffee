@@ -63,7 +63,8 @@ class Player extends Controller
 
   onPlay: =>
     @el.removeClass 'paused ended seeking'
-    @fadeOut()
+    @player.one 'timeupdate', =>
+      @fadeOut()
 
   onPause: =>
     @el.addClass 'paused'
