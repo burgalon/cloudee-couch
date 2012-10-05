@@ -7,6 +7,7 @@ class Player extends Controller
   className: 'player'
   elements:
     'video': 'player'
+    '.up-next': 'upNext'
     '.time': 'time'
     '.controls': 'controls'
     '.duration': 'duration'
@@ -30,6 +31,7 @@ class Player extends Controller
   render: ->
     @video.src = @file.video_url
     @video.load()
+    @upNext.html require('views/file')(@file)
     @video.play()
     @setVideoTime(0)
     @setVideoDuration(0)

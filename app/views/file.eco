@@ -1,0 +1,12 @@
+<div class="f feed" href="#<%= @couchUrl() %>">
+  <div class="thumb-col">
+    <%= @safe require('views/file_thumb')(@)%>
+  </div>
+  <div class="description-col">
+    <div>
+      <div>Now playing:</div>
+      <div class="name"><%=  @fallbackName() %></div>
+      <div><%= @recorded_at_ago %></div>
+    </div>
+  </div>
+</div>
