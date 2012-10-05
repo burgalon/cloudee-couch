@@ -6,6 +6,7 @@ File = require('models/file')
 class Player extends Controller
   className: 'player'
   seekTime: 3
+  backIndex: 0
   elements:
     'video': 'player'
     '.up-next': 'upNext'
@@ -14,6 +15,7 @@ class Player extends Controller
     '.duration': 'duration'
     '.time-bar': 'timeBar'
     '.scrubber': 'scrubber'
+
   constructor: ->
     super
     @active @change
@@ -38,10 +40,17 @@ class Player extends Controller
     @seekTime = Math.min(25, @file.runtime_seconds / 60) + 3
     @fadeIn()
 
-  blur: ->
+  # This is necessary since the player may play sequentially one video after another, and so back will just
+  # get us to the last playbacked movie instead of the navigation
+  navigateBack: ->
+    history.go(@backIndex)
+
+  blur: (newController) ->
+    @backIndex = 0 if newController!=@
     app.mainWrapper.activate()
 
   change: (params) =>
+    @backIndex = @backIndex - 1
     return true if @file && @file.id == params.id && !@video.paused
     @file = File.exists(params.id)
     @render()

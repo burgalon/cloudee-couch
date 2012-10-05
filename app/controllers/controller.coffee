@@ -26,7 +26,7 @@ class Controller extends Spine.Controller
     # Manage only one controller each time in focus
     @active ->
       if focusedController
-        focusedController.trigger('blur')
+        focusedController.trigger('blur', @)
         $('body').removeClass focusedController.className.split(' ')[0]+'-wrapper'
       focusedController = @
       $('body').addClass focusedController.className.split(' ')[0]+'-wrapper'
