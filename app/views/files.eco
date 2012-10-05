@@ -1,20 +1,22 @@
-<div class="friend-row">
-  <div class="user-small"><img src="<%= @user.picture()%>"></div>
-  <div class="name">
-    <%= @name %>
-    <span class="files-count"><%= @files_count %> videos</span>
-  </div>
-</div>
-<% for file in @files: %>
-<div class="f feed" href="#<%= file.couchUrl() %>">
-  <div class="thumb-col">
-    <%= @safe require('views/file_thumb')(file)%>
-  </div>
-  <div class="description-col">
-    <div>
-      <div class="name"><%=  file.fallbackName() %></div>
-      <div><%= file.recorded_at_ago %></div>
+<div class="files-container">
+  <div class="friend-row">
+    <div class="user-small"><img src="<%= @user.picture()%>"></div>
+    <div class="name">
+      <%= @name %>
+      <span class="files-count"><%= @files_count %> videos</span>
     </div>
   </div>
+  <% for file in @files: %>
+  <div class="f feed" href="#<%= file.couchUrl() %>">
+    <div class="thumb-col">
+      <%= @safe require('views/file_thumb')(file)%>
+    </div>
+    <div class="description-col">
+      <div>
+        <div class="name"><%=  file.fallbackName() %></div>
+        <div><%= file.recorded_at_ago %></div>
+      </div>
+    </div>
+  </div>
+  <% end %>
 </div>
-<% end %>
