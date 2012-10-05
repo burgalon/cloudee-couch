@@ -85,7 +85,9 @@ class Player extends Controller
     @el.addClass 'ended'
     @el.removeClass 'ended'
     @fadeIn()
-    Spine.trigger 'playEnded'
+    if @isFocused()
+      @log 'triggering playEnded'
+      Spine.trigger 'playEnded'
 
   onSeeking: =>
     @el.addClass 'seeking'

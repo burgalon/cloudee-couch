@@ -39,6 +39,9 @@ class Controller extends Spine.Controller
   focus:->
     @el.addClass('focus')
 
+  isFocused: ->
+    focusedController == @
+
   render: ->
     @refreshElements()
     @select() if @els?.length
