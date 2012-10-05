@@ -1,9 +1,10 @@
-<video width="100%" controls="controls">
-  <source src="<%= @video_url %>" type="video/mp4" autoplay="autoplay">
+<video width="100%">
   Your browser does not support the video tag.
 </video>
-<div>
-  <div>00:00</div>
-  <div>Slider</div>
-  <div><%= @runtime %></div>
+<div class="controls">
+  <div class="time">00:00</div>
+  <div class="duration-bar"></div>
+  <div class="time-bar"></div>
+  <div class="scrubber"></div>
+  <div class="duration"></div>
 </div>

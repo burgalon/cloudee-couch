@@ -35,9 +35,6 @@ class MainWrapper extends Spine.Controller
 
   deactivate: ->
     super
-    @el.fadeOut('fast')
-
-
-
+    @el.hide()
 
 module.exports = MainWrapper

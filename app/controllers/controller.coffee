@@ -18,6 +18,7 @@ class Controller extends Spine.Controller
     @bind 'up', @up
     @bind 'enter', @enter
     @bind 'esc', @esc
+    @bind 'space', @space
 
     @bind 'blur', @blur
     @bind 'focus', @focus
@@ -60,7 +61,7 @@ class Controller extends Spine.Controller
   keypress: (e) =>
     return true unless focusedController is @
     @trigger 'left' if e.keyCode==37
-    return true if (!@els || !@els.length) && e.keyCode!=37
+    @trigger 'space' if e.keyCode==32
     @trigger 'right' if e.keyCode==39
     @trigger 'down' if e.keyCode==40
     @trigger 'up' if e.keyCode==38
@@ -103,6 +104,9 @@ class Controller extends Spine.Controller
 
   esc: ->
     @navigateBack()
+
+  space: ->
+    @log 'space'
 
   enter: ->
 #    @log 'enter'
