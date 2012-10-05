@@ -6,6 +6,7 @@
       <span class="files-count"><%= @files_count %> videos</span>
     </div>
   </div>
+  <div class="clear"></div>
   <% for file in @files: %>
   <div class="f feed" href="#<%= file.couchUrl() %>">
     <div class="thumb-col">
