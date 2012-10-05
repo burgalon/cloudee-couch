@@ -33,6 +33,7 @@ class Player extends Controller
     @video.play()
     @setVideoTime(0)
     @setVideoDuration(0)
+    @fadeIn()
 
   blur: ->
     app.mainWrapper.activate()
@@ -71,6 +72,7 @@ class Player extends Controller
     @el.addClass 'ended'
     @el.removeClass 'ended'
     @fadeIn()
+    Spine.trigger 'playEnded'
 
   onSeeking: =>
     @el.addClass 'seeking'
@@ -83,8 +85,8 @@ class Player extends Controller
   onTimeUpdate: =>
     @setVideoTime @video.currentTime
     @setVideoDuration @video.duration
-    @timeBar.stop().animate(width: @video.currentTime/@video.duration * 980)
-    @scrubber.stop().animate(left: @video.currentTime/@video.duration * 980 + 126 - 34 / 2)
+    @timeBar.stop().animate(width: @video.currentTime/@video.duration * (980 - 34 / 2) + 34 / 2)
+    @scrubber.stop().animate(left: @video.currentTime/@video.duration * (980 - 34 / 2) + 126 + 34 / 2)
 
 
   ## Video helpers

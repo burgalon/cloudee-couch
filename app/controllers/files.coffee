@@ -17,6 +17,13 @@ class Files extends Controller
     @active @change
     Collection.bind 'refresh', @render
     @bind 'blur', @blur
+    Spine.bind 'playEnded', @playNext
+
+  playNext: =>
+    return if @el.hasClass('hide')
+    return if @selectedIndex >= @collection.files_count
+    @down()
+    @enter()
 
   render: =>
     return if !@collectionId
