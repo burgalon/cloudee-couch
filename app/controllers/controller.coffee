@@ -9,6 +9,9 @@ class Controller extends Spine.Controller
   elements:
     '.f': 'els'
 
+  events:
+    'click .f': 'click'
+
   constructor: ->
     super
     Spine.bind 'keypress', @keypress
@@ -32,6 +35,12 @@ class Controller extends Spine.Controller
       $('body').addClass focusedController.className.split(' ')[0]+'-wrapper'
       focusedController.trigger('focus')
 
+  click: (e) ->
+    return unless @isFocused()
+    @deselect()
+    @selectedIndex =  @els.index(e.currentTarget)
+    @select()
+    @enter()
 
   blur: ->
     @el.removeClass('focus')

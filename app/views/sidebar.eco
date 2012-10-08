@@ -1,5 +1,5 @@
 <h1></h1>
-<a class="f" href="#/activity">Activity</a>
-<a class="f" href="#/collections">Collections</a>
-<a class="f" href="#/friends">Friends</a>
-<a class="f logout">Logout</a>
+<div class="f" href="#/activity">Activity</div>
+<div class="f" href="#/collections">Collections</div>
+<div class="f" href="#/friends">Friends</div>
+<div class="f logout">Logout</div>
