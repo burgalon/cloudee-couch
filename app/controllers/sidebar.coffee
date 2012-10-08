@@ -16,4 +16,17 @@ class Sidebar extends Controller
 
   right: ->
     @enter()
+
+  # Update the panels without needing to press ENTER
+  down: ->
+    super
+    Spine.Route.matchRoute(@selectedEl().attr('href').substring(1)) if @selectedIndex<3
+    Spine.Route.matchRoute '/'
+
+  up: ->
+    super
+    Spine.Route.matchRoute(@selectedEl().attr('href').substring(1)) if @selectedIndex<3
+    Spine.Route.matchRoute '/'
+
+
 module.exports = Sidebar
