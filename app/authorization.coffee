@@ -43,7 +43,13 @@ class Authorization extends Spine.Module
   @logout: ->
     @token = null
     delete localStorage['access_token']
-    window.location.reload()
+
+    # DELETE method for signout
+    form = $('<form method="post" action="'+Config.oauthEndpoint.replace('/oauth/','')+'/users/sign_out?next='+Config.oauthRedirectUri+'"><input name="_method" value="delete" type="hidden" /></form>')
+    form.hide().appendTo('body');
+    form.submit()
+
+#    window.location.reload()
 
   @login: =>
     window.location = @::oauthEndPoint
