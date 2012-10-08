@@ -6,7 +6,7 @@ class User extends Model
   firstName: ->
     @name.split(' ')[0]
   picture: ->
-    @images.normal
+    @images.square
 
   load: (atts) ->
     for key, value of atts
