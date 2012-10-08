@@ -26,12 +26,20 @@ class ListWrapperController extends Controller
   data: ->
     @model.all()
 
+  right: ->
+    return if @selectedEl().attr('href').indexOf('play')!=-1
+    super
+
   select: ->
     super
     selectedElOffset = @selectedEl().offset().top
     if selectedElOffset + @selectedEl().height() > @el.height() || selectedElOffset<0
+      if @selectedIndex
+        scrollTop = @el.scrollTop()+selectedElOffset
+      else
+        scrollTop = 0
       @el.animate({
-      scrollTop: @el.scrollTop()+selectedElOffset
+        scrollTop: scrollTop
       }, 100);
 
 module.exports = ListWrapperController
