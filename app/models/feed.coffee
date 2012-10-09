@@ -18,6 +18,7 @@ VERBS =
   'UploadFeed': 'uploaded'
 
 class Feed extends Model
+  @PAGINATION_LIMIT = 25
   @configure 'Feed', 'type', 'created_at_ago'
   #, 'user', 'collection', 'files'
 

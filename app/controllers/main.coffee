@@ -18,6 +18,17 @@ class Activity extends ListWrapperController
   wrapperTemplate: 'views/activity'
   template: 'views/feed'
   model: Feed
+  paginatedIndex: 0
+
+  select: ->
+    super
+    if @selectedIndex > @paginatedIndex && @selectedIndex > @model.all().length - (Feed.PAGINATION_LIMIT * 0.25) && !@stopPaginating
+      @paginatedIndex = @model.all().length
+      @model.fetch(data: {before_id: @model.last().id})
+      @model.one 'refresh', =>
+        @stopPaginating = true if @model.all.length % Feed.PAGINATION_LIMIT != 0
+
+
 
 class Friends extends ListWrapperController
   className: 'friends panel'
