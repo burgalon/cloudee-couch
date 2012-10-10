@@ -32,11 +32,15 @@ class Player extends Controller
     @player.bind 'boxee:pause', @onBoxeePause
 
   render: ->
+    # Load new source url
     @video.src = @file.video_url
     @video.load()
     @upNext.html require('views/file')(@file)
     @video.play()
+
+    # Update UI
     @setVideoDuration(@file.runtime_seconds)
+    # Set seeking jump interval depending on the video length with a maximum of 28 seconds and minimum of 3 seconds
     @seekTime = Math.min(25, @file.runtime_seconds / 60) + 3
     @fadeIn()
 
@@ -49,7 +53,9 @@ class Player extends Controller
     @backIndex = 0 if newController!=@
     app.mainWrapper.activate()
 
+  # Called when new video is loaded
   change: (params) =>
+    # See @navigateBack() comment
     @backIndex = @backIndex - 1
     return true if @file && @file.id == params.id && !@video.paused
     @file = File.exists(params.id)
@@ -97,10 +103,10 @@ class Player extends Controller
     @el.removeClass 'seeking'
     @fadeOut()
 
+  # Called when video playback progresses
   onTimeUpdate: =>
     # Set digits
     @setVideoTime @video.currentTime
-    #@setVideoDuration @video.duration
 
     # Update bars
     duration = (if @video.currentTime > @currentTime then null else 0)
@@ -123,6 +129,7 @@ class Player extends Controller
   right: ->
     @seekTo @video.currentTime + @seekTime
 
+  # Prevent default behaviour
   up: ->
   down: ->
     

@@ -13,6 +13,7 @@ class Collections extends ListWrapperController
   template: 'views/collection'
   model: MyCollection
 
+# Feed panel
 class Activity extends ListWrapperController
   className: 'activity panel'
   wrapperTemplate: 'views/activity'
@@ -28,14 +29,13 @@ class Activity extends ListWrapperController
       @model.one 'refresh', =>
         @stopPaginating = true if @model.all.length % Feed.PAGINATION_LIMIT != 0
 
-
-
 class Friends extends ListWrapperController
   className: 'friends panel'
   wrapperTemplate: 'views/friends'
   template: 'views/user'
   model: Friend
 
+# Panels stack helps make sure that only one panel is shown each time
 class Main extends Spine.Stack
   className: 'main stack'
 

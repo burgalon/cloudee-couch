@@ -3,6 +3,8 @@ App = require('../index')
 
 focusedController = null;
 
+# Base controller which adds support for keyboard handling
+# and managing one focused panel each time
 class Controller extends Spine.Controller
   selectedIndex: 0
   selected: false
@@ -42,36 +44,48 @@ class Controller extends Spine.Controller
     @select()
     @enter()
 
+  # Remove focus class from the panel
   blur: ->
     @el.removeClass('focus')
 
+  # Add focus class to the panel
   focus:->
     @el.addClass('focus')
 
+  # Helper to determine if current panel is in focus and should handle keyboard events
   isFocused: ->
     focusedController == @
 
   render: ->
+    # Sometime this is needed since a subview is rendered and so refreshElements is not called
+    # like in the case of ListWrapper
     @refreshElements()
+    # Set focus on first element
     @select() if @els?.length
 
+  # Returns the currently selected element in the list
   selectedEl: ->
     $(@els[@selectedIndex])
 
+  # Adds 'select' class to the currently selected class in the list
   select: ->
     @selectedEl().addClass('select')
 
+  # Remove 'select' class to the currently selected class in the list
   deselect: ->
     @selectedEl().removeClass('select')
 
+  # Moves selection to the next element in the list
   nextSelect: ->
     @selectedIndex+=1 if @selectedIndex<@els.length-1
 
+  # Moves selection to the previous element in the list
   prevSelect: ->
     @selectedIndex-=1 if @selectedIndex>0
 
+  # Fires specific keypresses events
   keypress: (e) =>
-    return true unless focusedController is @
+    return true unless isFocused()
     @trigger 'left' if e.keyCode==37
     @trigger 'space' if e.keyCode==32
     @trigger 'right' if e.keyCode==39
