@@ -20,8 +20,10 @@ class Files extends Controller
     Spine.bind 'playEnded', @playNext
 
   playNext: =>
-    return if @el.hasClass('hide')
-    return if @selectedIndex >= @collection.files_count
+    if @el.hasClass('hide')
+      @navigateBack()
+    if @selectedIndex >= @collection.files_count
+      @navigateBack()
     @down()
     @enter()
 
