@@ -32,5 +32,5 @@ else
     oauthEndpoint: 'http://www.cloudee.com/oauth/'
     oauthRedirectUri: 'http://couch.cloudee.com/'
 
-Config['version'] = 0.1
+Config['version'] = '0.1'
 module.exports = Config
