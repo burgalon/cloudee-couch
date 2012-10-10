@@ -1,6 +1,7 @@
-timeBarWidth = 980px
-timeTextWidth = 126px
-paddingHelper = ((screenWidth - timeBarWidth - timeTextWidth * 2) / 2)
+timeBarWidth = 900px
+timeTextWidth = ((1280px - timeBarWidth) / 2)
+controlsTopPadding = 44px
+
 .player
   .controls
     visibility: hidden
@@ -8,14 +9,15 @@ paddingHelper = ((screenWidth - timeBarWidth - timeTextWidth * 2) / 2)
     position: absolute
     bottom: 0
     color: #f5f5f5
-    padding: paddingHelper
-    width: screenWidth - @padding * 2
+    padding: controlsTopPadding 0
+    width: screenWidth
     background: transparentBlack
 
 
     .time
       float: left
       width: timeTextWidth
+      text-align: center
 
     .duration-bar
       float: left
@@ -29,35 +31,34 @@ paddingHelper = ((screenWidth - timeBarWidth - timeTextWidth * 2) / 2)
       background: selectedBlue
       height: 24px
       border-radius: 12px
-      width: (paddingHelper / 2)
+      width: 0
       position: absolute
-      top: paddingHelper
-      left: timeTextWidth + (paddingHelper / 2)
+      top: controlsTopPadding
+      left: timeTextWidth
 
     .scrubber
       float: left
       position: absolute
-      left: timeTextWidth + (paddingHelper / 2)
+      left: timeTextWidth - (34 / 2)
       width: 34px
       height: 34px
       border-radius: 25px
       background: selectedBlue
       border: 6px solid #fff
-      top: 14px
+      top: controlsTopPadding - (20 / 2)
 
     .duration
       float: left
       width: timeTextWidth
-      text-align: right
+      text-align: center
 
   .up-next
     .feed
       border-top: none
       position: absolute
-      bottom: 77px
-      left: 0
+      bottom: controlsTopPadding * 2 + 29px
       background-color: transparentBlack
-      padding: 30px 36px 0 paddingHelper
+      padding: 36px 36px 0 62px
 
 .player-wrapper
   .player

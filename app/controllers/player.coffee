@@ -105,8 +105,8 @@ class Player extends Controller
     # Update bars
     duration = (if @video.currentTime > @currentTime then null else 0)
     @currentTime = @video.currentTime
-    @timeBar.stop().animate(width: @video.currentTime/@video.duration * (980 - 34 / 2) + 24 / 2 + 34 / 2, duration)
-    @scrubber.stop().animate(left: @video.currentTime/@video.duration * (980 - 34 / 2) + 24 / 2 + 126, duration)
+    @timeBar.stop().animate(width: @video.currentTime/@video.duration * (900 - 34 / 2) + 34 / 2, duration)
+    @scrubber.stop().animate(left: @video.currentTime/@video.duration * 900 - 34 / 2 + (1280 - 900) / 2, duration)
 
 
   ## Video helpers
