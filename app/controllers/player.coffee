@@ -78,30 +78,24 @@ class Player extends Controller
     @togglePlayback()
 
   onPlay: =>
-    @el.removeClass 'paused ended seeking'
+#    @el.removeClass 'paused ended seeking'
     @player.one 'timeupdate', =>
       @fadeOut()
 
   onPause: =>
-    @el.addClass 'paused'
-    @el.removeClass 'ended'
     @fadeIn()
 
   onEnded: =>
-    @el.addClass 'ended'
-    @el.removeClass 'ended'
     @fadeIn()
     if @isFocused()
       @log 'triggering playEnded'
       Spine.trigger 'playEnded'
 
   onSeeking: =>
-    @el.addClass 'seeking'
     @fadeIn()
 
   onSeeked: =>
-    @el.removeClass 'seeking'
-    @fadeOut()
+    @video.play()
 
   # Called when video playback progresses
   onTimeUpdate: =>
@@ -124,10 +118,16 @@ class Player extends Controller
     @timerId = setTimeout (=> @controls.fadeOut() unless @video.paused), 2000
 
   left: ->
+    @video.pause()
+    @fadeIn()
     @seekTo @video.currentTime - @seekTime
+    @video.play()
 
   right: ->
+    @video.pause()
+    @fadeIn()
     @seekTo @video.currentTime + @seekTime
+    @video.play()
 
   # Prevent default behaviour
   up: ->
