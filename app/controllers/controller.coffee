@@ -85,7 +85,7 @@ class Controller extends Spine.Controller
 
   # Fires specific keypresses events
   keypress: (e) =>
-    return true unless isFocused()
+    return true unless @isFocused()
     @trigger 'left' if e.keyCode==37
     @trigger 'space' if e.keyCode==32
     @trigger 'right' if e.keyCode==39
