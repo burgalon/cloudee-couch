@@ -31,6 +31,8 @@ class Player extends Controller
     @player.bind 'boxee:play', @onBoxeePlay
     @player.bind 'boxee:pause', @onBoxeePause
 
+    Spine.bind 'closePlayer', @navigateBack
+
   render: ->
     # Load new source url
     @video.src = @file.video_url
@@ -46,7 +48,7 @@ class Player extends Controller
 
   # This is necessary since the player may play sequentially one video after another, and so back will just
   # get us to the last playbacked movie instead of the navigation
-  navigateBack: ->
+  navigateBack: =>
     history.go(@backIndex)
 
   blur: (newController) ->
