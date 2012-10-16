@@ -66,8 +66,16 @@ class Player extends Controller
     @file = File.exists(params.id)
     @render()
 
+  pause: ->
+    @el.addClass('paused')
+    @video.pause()
+
+  play: ->
+    @el.removeClass('paused')
+    @video.play()
+
   togglePlayback: ->
-    if @video.paused then @video.play() else @video.pause()
+    if @video.paused then @play() else @pause()
 
   enter: ->
     @togglePlayback()

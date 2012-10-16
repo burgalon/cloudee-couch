@@ -3,6 +3,27 @@ timeTextWidth = ((1280px - timeBarWidth) / 2)
 controlsTopPadding = 44px
 
 .player
+  .pause
+    width: 100px
+    height: @width
+    position: absolute
+    top: (screenHeight / 2) - (@height / 2)
+    left: (screenWidth / 2) - (@width / 2)
+    background: url(images/pause.png)
+    display: none
+
+
+  &.paused
+    .paused-curtain
+      position: absolute
+      width: 100%
+      height: screenHeight
+      top: 0
+      background: rgba(0, 0, 0, 0.4)
+
+    .pause
+      display: block
+
   .controls
     visibility: hidden
     font-size: 24px
