@@ -62,4 +62,6 @@ class Files extends Controller
     @el.addClass('hide')
     super
 
+  right: ->
+
 module.exports = Files
