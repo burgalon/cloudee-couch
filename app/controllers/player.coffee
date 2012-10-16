@@ -38,6 +38,7 @@ class Player extends Controller
   render: ->
     # Load new source url
     @video.src = @file.video_url
+    @updateTimebar(0)
     @video.load()
     @upNext.html require('views/file')(@file)
     @video.play()
@@ -104,18 +105,10 @@ class Player extends Controller
   # Called when video playback progresses
   onTimeUpdate: =>
     # Set digits
-    @setVideoTime @video.currentTime
-
-    # Update bars
-    # If we're going back in time, or starting a new video, we should not animate the timebar change
-    # duration = duration of the animation
-    duration = (if @video.currentTime > @currentTime then null else 0)
-    @currentTime = @video.currentTime
-    @timeBar.stop().animate(width: @video.currentTime/@video.duration * (900 - 34 / 2) + 34 / 2, duration)
-    @scrubber.stop().animate(left: @video.currentTime/@video.duration * 900 - 34 / 2 + (1280 - 900) / 2, duration)
+    @updateTimebar(@video.currentTime)
 
   onProgress: =>
-    if @video.buffered.end(0) > 0
+    if @video.buffered.length && @video.buffered.end(0) > 0
       # If we're going back in time, or starting a new video, we should not animate the timebar change
       # duration = duration of the animation
       duration = (if @video.buffered.end(0) > @currentBuffer then null else 0)
@@ -123,6 +116,15 @@ class Player extends Controller
       @bufferBar.stop().animate(width: @currentBuffer / @video.duration * (900 - 34 / 2) + 34 / 2, duration)
 
   ## Video helpers
+  updateTimebar: (currentTime) ->
+    @setVideoTime currentTime
+    # If we're going back in time, or starting a new video, we should not animate the timebar change
+    # duration = duration of the animation
+    duration = (if currentTime > @currentTime then null else 0)
+    @currentTime = currentTime
+    @timeBar.stop().animate(width: currentTime/@video.duration * (900 - 34 / 2) + 34 / 2, duration)
+    @scrubber.stop().animate(left: currentTime/@video.duration * 900 - 34 / 2 + (1280 - 900) / 2, duration)
+
   fadeIn: ->
     clearTimeout(@timerId) if @timerId
     @controls.fadeIn()
