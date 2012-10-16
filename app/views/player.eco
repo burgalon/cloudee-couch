@@ -5,6 +5,7 @@
   <div class="up-next"></div>
   <div class="time">00:00</div>
   <div class="duration-bar"></div>
+  <div class="buffer-bar"></div>
   <div class="time-bar"></div>
   <div class="scrubber"></div>
   <div class="duration"></div>

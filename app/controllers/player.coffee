@@ -14,6 +14,7 @@ class Player extends Controller
     '.controls': 'controls'
     '.duration': 'duration'
     '.time-bar': 'timeBar'
+    '.buffer-bar': 'bufferBar'
     '.scrubber': 'scrubber'
 
   constructor: ->
@@ -27,6 +28,7 @@ class Player extends Controller
     @player.bind 'seeking', @onSeeking
     @player.bind 'seeked', @onSeeked
     @player.bind 'timeupdate', @onTimeUpdate
+    @player.bind 'progress', @onProgress
 
     @player.bind 'boxee:play', @onBoxeePlay
     @player.bind 'boxee:pause', @onBoxeePause
@@ -105,11 +107,20 @@ class Player extends Controller
     @setVideoTime @video.currentTime
 
     # Update bars
+    # If we're going back in time, or starting a new video, we should not animate the timebar change
+    # duration = duration of the animation
     duration = (if @video.currentTime > @currentTime then null else 0)
     @currentTime = @video.currentTime
     @timeBar.stop().animate(width: @video.currentTime/@video.duration * (900 - 34 / 2) + 34 / 2, duration)
     @scrubber.stop().animate(left: @video.currentTime/@video.duration * 900 - 34 / 2 + (1280 - 900) / 2, duration)
 
+  onProgress: =>
+    if @video.buffered.end(0) > 0
+      # If we're going back in time, or starting a new video, we should not animate the timebar change
+      # duration = duration of the animation
+      duration = (if @video.buffered.end(0) > @currentBuffer then null else 0)
+      @currentBuffer = @video.buffered.end(0)
+      @bufferBar.stop().animate(width: @currentBuffer / @video.duration * (900 - 34 / 2) + 34 / 2, duration)
 
   ## Video helpers
   fadeIn: ->
