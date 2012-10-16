@@ -15,7 +15,10 @@ class Sidebar extends Controller
     super
 
   right: ->
-    @enter()
+    @enter() if @selectedIndex<3
+
+  # disable pressing left on the sidebar
+  left: ->
 
   # Update the panels without needing to press ENTER
   down: ->
